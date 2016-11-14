@@ -1,0 +1,13 @@
+{
+  "name": "starter-node-angular",
+  "main": "server.js",
+  "version": "1.0.1",
+  "dependencies": {
+    "body-parser": "~1.4.2",
+    "express": "~4.5.1",
+    "express-handlebars": "~3.0.0",
+    "method-override": "~2.0.2",
+    "mongoose": "~3.8.0",
+    "s-age": "^1.1.0"
+  }
+}

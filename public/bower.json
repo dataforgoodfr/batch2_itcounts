@@ -1,0 +1,29 @@
+{
+  "name": "data4good",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "komi24"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "data-viz",
+    "gender",
+    "equality"
+  ],
+  "homepage": "https://github.com/komi24/D4G-data-viz",
+  "dependencies": {
+    "bootstrap": "v4.0.0-alpha.5",
+    "d3": "^4.3.0",
+    "lodash": "^4.16.6",
+    "raphael": "^2.2.6"
+  },
+  "overrides": {
+    "bootstrap": {
+      "main": [
+        "dist/css/bootstrap.css",
+        "dist/js/bootstrap.js"
+      ]
+    }
+  }
+}

@@ -1,0 +1,40 @@
+<form action="" method="post" id="hemicycle-form">
+        <div>
+        	<p>Groupe politique</p>
+        	{{#each political_group}}
+				<input type="checkbox" name ="groupe_sigle" id="pg-{{_id.sigle}}" value="{{_id.sigle}}"> 
+				<label for="pg-{{_id.sigle}}">{{_id.groupe}}</label>
+	        {{/each}}
+        </div>
+        <div>
+        	<p>Sexe</p>
+			<input type="checkbox" name="sexe" id="cbox-femme" value="F"> 
+			<label for="cbox-femme">Femme</label>
+			<input type="checkbox" name="depute.sexe" id="cbox-homme" value="H"> 
+			<label for="cbox-homme">Homme</label>
+		</div>
+       	<div>
+			<p>Régions</p>
+			{{#each region}}
+				<input type="checkbox" name="region.num" id="cbox-{{_id.num}}" value="{{_id.num}}"> 
+				<label for="cbox-{{_id.num}}">{{_id.nom}}</label>
+	        {{/each}}
+	    </div>
+	    <div>
+		    <p for="nbMandat">Nombre de mandats cumulés</p>
+		    <span id="minNbMandat">{{ minNbMandat }}</span>
+			<p id="slider-mandat"></p>
+			<span id="maxNbMandat">{{ maxNbMandat }}</span>
+	    </div>
+	     <div>
+		    <p for="nbAge">Age</p>
+		    <span id="minAge">{{ minAge }}</span>
+			<p id="slider-age"></p>
+			<span id="maxAge">{{ maxAge }}</span>
+	    </div>
+		<div>
+        	<input type="submit" value="Afficher" id="hemicycle-submit"/>
+        </div>
+  
+
+</form>
