@@ -3,11 +3,44 @@ var age     = require('s-age');
 
 module.exports = function(app) {
 
-  app.get('/api/dataviz_bubble', function(req, res) {
+  app.get('/api/dataviz_bubble/groupBy/:groupBy', function(req, res) {
+    var groupBy = req.params.groupBy.replace('-','.');
     Deputes.aggregate([
         {
             $group: {
-                _id: { "groupe": "$groupe.organisme","ratt_financier": "$parti_ratt_financier", "sexe": "$sexe" },
+                _id: { "groupe": "$"+groupBy, "sexe": "$sexe" },
+                count: {$sum: 1}
+            }
+        }
+    ], function(err, deputeDetails) {
+      if (err) 
+        res.send(err);
+      res.json(deputeDetails); // return all nerds in JSON format
+    });
+  });
+
+  app.get('/api/dataviz_bubble/age_range', function(req, res) {
+    Deputes.aggregate([
+        { $match : { "date_naissance" : { $exists : true} } },
+        { $project : {"ageInMillis" : {$subtract : [new Date(), "$date_naissance"] }, "sexe":1} }, 
+        { $project : {"age" : {$divide : ["$ageInMillis", 31558464000] }, "sexe":1}},
+        { $project : {"age" : {$subtract : ["$age", {$mod : ["$age",5]}]}, "sexe":1}},
+        { $project : {"age" : {$substr: ["$age",0,-1]},"age2":{$substr: [{$add:['$age',4]} ,0,-1]}, "sexe":1}},
+        { $project : {"age" : {$concat : ["$age","-", "$age2"]}, "sexe":1}},
+        { $group : { _id : {"groupe":"$age","sexe":"$sexe"}, count : { $sum : 1} } }
+    ], function(err, deputeDetails) {
+      if (err) 
+        res.send(err);
+      res.json(deputeDetails); // return all nerds in JSON format
+    });
+  });
+
+  app.get('/api/dataviz_bubble_V2', function(req, res) {
+    Deputes.aggregate([
+        {   $unwind: "$groupes_parlementaires" },
+        {
+            $group: {
+                _id: { "groupe": "$groupes_parlementaires.responsabilite.fonction", "sexe": "$sexe" },
                 count: {$sum: 1}
             }
         }
@@ -23,28 +56,31 @@ module.exports = function(app) {
       ,function(err, groupes) {
       if (err) 
         res.send(err);
-      Deputes.distinct( "nb_mandats",function(err, nb_mandats) {
+      Deputes.aggregate([
+          { $group : { _id : 1, max: { $max: "$nb_mandats" }, min: { $min: "$nb_mandats" } } }] 
+        ,function(err, nb_mandats) {
         if (err) 
           res.json(err);
-        nb_mandats_sort = nb_mandats.sort();
-        Deputes.distinct( "date_naissance",function(err, dates_naissance) {
+      Deputes.aggregate([
+            { $project : {"ageInMillis" : {$subtract : [new Date(), "$date_naissance"] }} }, 
+            { $project : {"age" : {$divide : ["$ageInMillis", 31558464000] }}},
+            { $project : {"age" : {$subtract : ["$age", {$mod : ["$age",1]}]}}},
+            { $group : { _id : 1, max: { $max: "$age" }, min: { $min: "$age" } } }
+        ],function(err, dates_naissance) {
           if (err) 
             res.json(err);
-          dates_naissance_sort= dates_naissance.sort();
           Deputes.aggregate([{"$group": { "_id": { num: "$region.num",nom: "$region.nom"} } },{ "$sort" : { "_id.nom" : 1 }}]
             ,function(err, region) {
             if (err) 
               res.json(err);
-            max_ddn = String(dates_naissance_sort[0])
-            min_ddn = String(dates_naissance_sort[dates_naissance_sort.length-1])
             res.render('formulaire_hemicycle', 
               {
                 political_group : groupes,
                 region : region,
-                minNbMandat : nb_mandats_sort[0],
-                maxNbMandat : nb_mandats_sort[nb_mandats_sort.length-1],
-                minAge : age(min_ddn.substr(0,4)+'-'+min_ddn.substr(4,2)+'-'+min_ddn.substr(6,2)),
-                maxAge : age(max_ddn.substr(0,4)+'-'+max_ddn.substr(4,2)+'-'+max_ddn.substr(6,2))
+                minNbMandat : nb_mandats[0].min,
+                maxNbMandat : nb_mandats[0].max,
+                minAge : dates_naissance[0].min,
+                maxAge : dates_naissance[0].max
               });
           });
         });
@@ -89,7 +125,13 @@ function getCondition(key, value){
   var arrayKey = key.split('-');
   if(arrayKey.length>1){
     var subCondition = {};
-    subCondition['$'+arrayKey[1]] = Number(value);
+    if(arrayKey[0] == "date_naissance"){
+      subCondition['$'+arrayKey[1]] = new Date(value);
+    }
+    else{
+      subCondition['$'+arrayKey[1]] = Number(value);
+    }
+    
     condition[arrayKey[0]]= subCondition;
   }
   else{

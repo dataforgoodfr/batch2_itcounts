@@ -3,15 +3,15 @@ $(document).ready(function(){
         event.preventDefault();
         var criteres= $('#hemicycle-form').serialize();
 
-        if($("#slider-age").slider("option", "min") != $("#slider-age").slider("values")[0]){
+        if($("#slider-age").slider("option", "max") != $("#slider-age").slider("values")[1]){
         	 var min_ddn = new Date();
         	min_ddn.setFullYear( min_ddn.getFullYear() - $("#maxAge").html());
-        	criteres +='&date_naissance-gte='+ min_ddn.getFullYear()+(min_ddn.getMonth()+1)+min_ddn.getDate();
+        	criteres +='&date_naissance-gte='+ min_ddn.toISOString();
         }
-       	if($("#slider-age").slider("option", "max") != $("#slider-age").slider("values")[1]){
+       	if($("#slider-age").slider("option", "min") != $("#slider-age").slider("values")[0]){
 			var max_ddn = new Date();
 	        max_ddn.setFullYear( max_ddn.getFullYear() - $("#minAge").html());
-	        criteres +='&date_naissance-lte='+ max_ddn.getFullYear()+(max_ddn.getMonth()+1)+max_ddn.getDate();
+	        criteres +='&date_naissance-lte='+ max_ddn.toISOString();
        	}
         
    
