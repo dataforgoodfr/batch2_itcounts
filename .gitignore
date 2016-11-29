@@ -38,3 +38,5 @@ jspm_packages
 
 #Bower
 public/bower_components
+scripts_import/.ipynb_checkpoints/import_department-checkpoint.ipynb
+scripts_import/.ipynb_checkpoints/import_deputes-checkpoint.ipynb

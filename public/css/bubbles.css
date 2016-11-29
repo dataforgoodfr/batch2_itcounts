@@ -1,0 +1,188 @@
+#g-chart {
+  overflow: hidden;
+  position: relative;
+
+}
+
+.g-legend {
+  color: #999;
+  font: 11px/1.3em Verdana;
+  height: 30px;
+  margin-top: 15px;
+  position: relative;
+  text-align: center;
+}
+
+.g-arrow {
+  position: absolute;
+  width: 100px;
+}
+
+.g-arrow:before {
+  position: absolute;
+  font-size: 15px;
+  font-style: normal;
+  top: 7px;
+}
+
+.g-femme.g-arrow {
+  left: 170px;
+  padding-left: 40px;
+}
+
+.g-arrow.g-femme:before {
+  content: "←";
+  right: 100px;
+}
+
+.g-homme.g-arrow {
+  right: 170px;
+  padding-right: 40px;
+}
+
+.g-arrow.g-homme:before {
+  content: "→";
+  left: 100px;
+}
+
+.g-legend .g-pointer {
+  width: 150px;
+}
+
+.g-overview {
+  position: absolute;
+  left: 360px;
+  text-align: center;
+  width: 250px;
+}
+
+.g-legend .g-femme.g-pointer {
+  position: absolute;
+  left: 314px;
+  text-align: right;
+  padding-right: 20px;
+}
+
+.g-swatch {
+  width: 6px;
+  height: 8px;
+  display: inline-block;
+  position: relative;
+  top: 1px;
+  margin: 0 3px;
+}
+
+.g-homme.g-swatch {
+  background-color: #ff4318;
+  border-radius: 0 4px 4px 0;
+}
+
+.g-femme.g-swatch {
+  background-color: #00ffa4;
+  border-radius: 4px 0 0 4px;
+}
+
+.g-homme.g-swatch {
+  background-color: #ff4318;
+}
+
+.g-label .g-value, .g-label .g-percent  {
+  display:none;
+}
+.g-label.g-hover .g-value, .g-label.g-hover .g-percent {
+  display:block;
+}
+.g-label.g-hover .g-name {
+  display:none;
+}
+
+.g-node .g-femme {
+  fill: #00ffa4;
+}
+
+.g-node.g-hover .g-femme {
+  fill: #acbed1; /* darker(.5) */
+}
+
+.g-node.g-selected .g-femme {
+  fill: #99c0e5; /* c *= 2, darker(.5) */
+  stroke: #6081a3; /* c *= 2, darker(2) */
+  stroke-width: 1.5px;
+}
+
+.g-node .g-homme {
+  fill: #ff4318;
+}
+
+.g-node.g-hover .g-homme {
+  fill: #dfb1b1; /* darker(.5) */
+}
+
+.g-node.g-selected .g-homme {
+  fill: #fda4a7; /* c *= 2, darker(.5) */
+  stroke: #af5e61; /* c *= 2, darker(2) */
+  stroke-width: 1.5px;
+}
+
+.g-node .g-split {
+  stroke: #000;
+  stroke-opacity: .18;
+  shape-rendering: crispEdges;
+}
+
+a.g-label {
+  font-family:Verdana;
+  color: inherit;
+  cursor: pointer;
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  line-height: 1em;
+  position: absolute;
+}
+
+
+.g-overlay,
+.g-node,
+.g-label {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.g-overlay {
+  fill: none;
+  pointer-events: all;
+}
+
+.g-body {
+  min-height: 700px;
+}
+
+.g-body h3 {
+  font-size: 18px;
+  line-height: 1.4em;
+  font-family: Verdana;
+  font-weight: normal;
+  margin-bottom: 0.9em;
+}
+
+.g-divider,
+.g-mention,
+.g-truncated {
+  border-top: solid 2px #ccc;
+}
+
+.g-head a {
+  border-radius: 3px;
+  padding: 3px 3px;
+  white-space: nowrap;
+}
+
+.g-femme a {
+  background-color: #00ffa4;
+  color: #4a5783;
+}
+
+.g-homme a {
+  background-color: #fbdedf;
+  color: #734143;
+}

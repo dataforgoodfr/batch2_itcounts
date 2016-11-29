@@ -1,0 +1,32 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <link rel="stylesheet" href="css/bubbles.css" />
+</head>
+<body id="interactiveABC" class="interactiveABC">
+    <div id="main">
+ 
+        <div id="g-chart">
+            <div class="g-legend" style="position:absolute;width:970px;">
+                <div class="g-femme g-arrow">Groupes ayant<br>le plus de femmes</div>
+                <div>
+                    <select id="to_visualize">
+                      <option value="region">Par région</option>
+                      <option value="parti_politique">Par groupes politiques</option>
+                      <option value="age">Par tranche d'âge</option>
+                    </select>
+                </div>
+                <div class="g-homme g-arrow">Groupes ayant<br>le plus d'hommes</div>
+            </div>
+            <div class="g-labels"></div>
+            <svg class="g-nodes" width="970" height="540">
+            </svg>
+        </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://static01.nyt.com/newsgraphics/2012/09/04/convention-speeches/ac823b240e99920e91945dbec49f35b268c09c38/d3.v2.min.js"></script>
+        <script src="js/bubbles.js"></script>
+    </div>
+</body>
+</html>
+
+
