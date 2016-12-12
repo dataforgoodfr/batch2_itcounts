@@ -49,7 +49,7 @@ function initDataviz(request){
             return [value];
           });
           var width = 1050,
-              height = 540;
+              height = 600;
 
           var collisionPadding = 4,
               clipPadding = 4,
@@ -66,7 +66,7 @@ function initDataviz(request){
               .range([0, maxRadius]);
 
           var force = d3.layout.force()
-              .charge(0)
+              .charge(20)
               .size([width, height - 100])
               .on("tick", tick);
 
@@ -78,7 +78,8 @@ function initDataviz(request){
               .attr("width", width)
               .attr("height", height);
 
-       
+          d3.select(window).on('resize', resize); 
+          
           updateTopics(data.groupes);
         
 
@@ -178,18 +179,20 @@ function initDataviz(request){
       labelEnter.append("div")
           .attr("class", "g-name")
           .text(function(d) { return d.name; });
-      labelEnter.append("div")
+      /*labelEnter.append("div")
           .attr("class", "g-percent")
           .style("font-size", function(d) { return Math.max(10, d.r / 2) + "px"; })
-          .text(function(d) {return Math.round(d.F/(d.F + d.H) * 100) + " %"; });
+          .text(function(d) {return Math.round(d.F/(d.F + d.H) * 100) + " %"; });*/
 
       labelEnter.append("div")
           .attr("class", "g-value")
+          .style("font-size", function(d) { return Math.max(10, d.r / 3) + "px"; })
           .text(function(d) { return d.F +" - "+ d.H;});
 
       label
           .style("font-size", function(d) { return Math.max(10, d.r / 4) + "px"; })
-          .style("width", function(d) { return d.r + "px"; });
+          .style("width", function(d) { return d.r + "px"; })
+          .style("display", "flex");
 
       // Create a temporary span to compute the true text width.
       label.append("span")
@@ -201,7 +204,12 @@ function initDataviz(request){
           .style("width", function(d) { return d.dx + "px"; });
 
       // Compute the height of labels when wrapped.
-      label.each(function(d) { d.dy = this.getBoundingClientRect().height; });
+      label.each(function(d) { d.dy = this.getBoundingClientRect().height; })
+          .style("height", function(d) { return d.dy + "px"; });
+
+      d3.selectAll(".g-name").style("margin","auto");
+      d3.selectAll(".g-value").style("margin","auto");
+          
     }
 
 
@@ -215,12 +223,12 @@ function initDataviz(request){
     // Simulate forces and update node and label positions on tick.
     function tick(e) {
       node
-          .each(bias(e.alpha * 105))
-          .each(collide(.5))
-          .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
+          .each(bias(e.alpha * 120))
+          .each(collide(0.5))
+          .attr("transform", function(d) { return "translate(" + Math.max(50, d.x) + "," + d.y + ")"; });
 
       label
-          .style("left", function(d) { return (d.x - d.dx / 2) + "px"; })
+          .style("left", function(d) { return (Math.max(50, d.x) - d.dx / 2) + "px"; })
           .style("top", function(d) { return (d.y - d.dy / 2) + "px"; });
     }
 
@@ -273,12 +281,12 @@ function initDataviz(request){
       return k;
     }
 
-    function mouseover(d) {
-      node.classed("g-hover", function(p) { return p === d; });
-      label.classed("g-hover", function(p) { return p === d; });
+    function mouseover(element) {
+      node.classed("g-hover", function(p) { return p === element; });
+      label.classed("g-hover", function(p) { return p === element; });
     }
 
-    function mouseout(d) {
+    function mouseout(element) {
       node.classed("g-hover", false);
       label.classed("g-hover", false);
     }

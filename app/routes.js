@@ -27,7 +27,7 @@ module.exports = function(app) {
         { $project : {"age" : {$divide : ["$ageInMillis", 31558464000] }, "sexe":1}},
         { $project : {"age" : {$subtract : ["$age", {$mod : ["$age",range]}]}, "sexe":1}},
         { $project : {"age" : {$substr: ["$age",0,-1]},"age2":{$substr: [{$add:['$age',range]} ,0,-1]}, "sexe":1}},
-        { $project : {"age" : {$concat : ["$age","-", "$age2"]}, "sexe":1}},
+        { $project : {"age" : {$concat : ["$age","-", "$age2"," ans"]}, "sexe":1}},
         { $group : { _id : {"groupe":"$age","sexe":"$sexe"}, count : { $sum : 1} } }
     ], function(err, deputeDetails) {
       if (err) 
