@@ -91,6 +91,46 @@ module.exports = function(app) {
       
   });
 
+  app.get('/api/hemicycle/view', function(req, res) {
+    Deputes.aggregate([{"$group": { "_id": { sigle: "$groupe_sigle",groupe: "$groupe.organisme"} } },{ "$sort" : { "_id.groupe" : 1 }}]
+      ,function(err, groupes) {
+      if (err) 
+        res.send(err);
+      Deputes.aggregate([
+          { $group : { _id : 1, max: { $max: "$nb_mandats" }, min: { $min: "$nb_mandats" } } }] 
+        ,function(err, nb_mandats) {
+        if (err) 
+          res.json(err);
+      Deputes.aggregate([
+            { $project : {"ageInMillis" : {$subtract : [new Date(), "$date_naissance"] }} }, 
+            { $project : {"age" : {$divide : ["$ageInMillis", 31558464000] }}},
+            { $project : {"age" : {$subtract : ["$age", {$mod : ["$age",1]}]}}},
+            { $group : { _id : 1, max: { $max: "$age" }, min: { $min: "$age" } } }
+        ],function(err, dates_naissance) {
+          if (err) 
+            res.json(err);
+          Deputes.aggregate([{"$group": { "_id": { num: "$region.num",nom: "$region.nom"} } },{ "$sort" : { "_id.nom" : 1 }}]
+            ,function(err, region) {
+            if (err) 
+              res.json(err);
+            res.render('hemicycle', 
+              {
+                formData: {
+                  political_group : groupes,
+                  region : region,
+                  minNbMandat : nb_mandats[0].min,
+                  maxNbMandat : nb_mandats[0].max,
+                  minAge : dates_naissance[0].min,
+                  maxAge : dates_naissance[0].max                
+                }
+              });
+          });
+        });
+      });
+      
+    });
+  });
+
   app.post('/api/hemicycle/search', function(req, res) {
     var criteres = req.body;
     var query = '';
@@ -98,6 +138,8 @@ module.exports = function(app) {
       query = {$and : []};
       Object.keys(criteres).forEach(function (key) {
         var subCondition;
+        console.log("key",key)
+        console.log("key",criteres[key])
         if (typeof criteres[key] == 'object'){
           subCondition ={ $or: []};
           criteres[key].forEach(function(item){
@@ -110,7 +152,7 @@ module.exports = function(app) {
         query.$and.push(subCondition);
       });
     }
-    
+    console.log("query",query);
     Deputes.find(query ,{ nom: 1, sexe: 1 , place_en_hemicycle:1,url_an :1},function(err, cursor) {
       if (err) 
         res.json(err);
@@ -122,21 +164,29 @@ module.exports = function(app) {
 
 
 function getCondition(key, value){
+  var modif = (key == "region.num") ? function(v){return v.toString();} : function(v){return Number(v);};
   var condition = {};
   var arrayKey = key.split('-');
   if(arrayKey.length>1){
     var subCondition = {};
     if(arrayKey[0] == "date_naissance"){
+      console.log("oki")
       subCondition['$'+arrayKey[1]] = new Date(value);
+    } else if (key == 'region.num'){
+      console.log("ok")
+      subCondition['$'+arrayKey[1]] = value.toString()  ;
     }
     else{
+      console.log("okil")
       subCondition['$'+arrayKey[1]] = Number(value);
     }
     
     condition[arrayKey[0]]= subCondition;
   }
   else{
-    condition[key]= isNaN(value)?value:Number(value);
+    condition[key]= isNaN(value)?value:modif(value);
   }
+  console.log("key",key)
+  console.log("condition",condition)
   return condition;
 }

@@ -1,5 +1,7 @@
 $(function(){
-	var paper = Raphael(0,30, 1000, 600);
+	var w = $('#canvas-an').width(),
+		h = $('#canvas-an').height();
+	var paper = Raphael('canvas-an', 1000, 600);
 	console.log(anData);
 	// Creates circle at x = 50, y = 40, with radius 10
 	var buf;
@@ -8,12 +10,30 @@ $(function(){
 			circle: paper.circle(value[0], value[1], 10),
 			text: paper.text(value[0], value[1],key)
 		}
+		anData[key].display.value = 0;
 		anData[key].display.circle.attr("fill", "#f00");
 		anData[key].display.circle.attr("stroke", "#fff");
 		anData[key].display.circle.attr("cursor", "move");
 		anData[key].display.circle.drag(move, start, up);
 	})
+	anData.ready = true;
 })
+
+var refresh = function() {
+	_.forEach(anData, function(value, key){
+		if(!anData[key].display){
+			console.log("no display", key);
+			return;
+		}
+		var val = anData[key].display.value;
+		var color = (val < 0.5) ? "#f00" : "#0f0";
+		color = (val < 0) ? "#ccc" : color;
+		anData[key].display.circle.attr("fill", color);
+		anData[key].display.circle.attr("stroke", "#fff");
+		anData[key].display.circle.attr("cursor", "move");
+		anData[key].display.circle.drag(move, start, up);
+	})
+}
 
 var start = function () {
     // storing original coordinates

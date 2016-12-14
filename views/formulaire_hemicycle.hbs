@@ -1,36 +1,44 @@
 <form action="" method="post" id="hemicycle-form">
+		<div>
+			<a class="waves-effect waves-light btn" id="preset-1">- 2 mandats</a>
+			<a class="waves-effect waves-light btn" id="preset-2">+60 ans IDF</a>
+		</div>
         <div>
-        	<p>Groupe politique</p>
+        	<h4>Groupe politique</h4>
         	{{#each political_group}}
 				<input type="checkbox" name ="groupe_sigle" id="pg-{{_id.sigle}}" value="{{_id.sigle}}"> 
 				<label for="pg-{{_id.sigle}}">{{_id.groupe}}</label>
 	        {{/each}}
         </div>
         <div>
-        	<p>Sexe</p>
+        	<h4>Sexe</h4>
 			<input type="checkbox" name="sexe" id="cbox-femme" value="F"> 
 			<label for="cbox-femme">Femme</label>
-			<input type="checkbox" name="depute.sexe" id="cbox-homme" value="H"> 
+			<input type="checkbox" name="sexe" id="cbox-homme" value="H"> 
 			<label for="cbox-homme">Homme</label>
 		</div>
        	<div>
-			<p>Régions</p>
+			<h4>Régions</h4>
 			{{#each region}}
 				<input type="checkbox" name="region.num" id="cbox-{{_id.num}}" value="{{_id.num}}"> 
 				<label for="cbox-{{_id.num}}">{{_id.nom}}</label>
 	        {{/each}}
 	    </div>
-	    <div>
-		    <p for="nbMandat">Nombre de mandats cumulés</p>
-		    <span id="minNbMandat">{{ minNbMandat }}</span>
-			<p id="slider-mandat"></p>
-			<span id="maxNbMandat">{{ maxNbMandat }}</span>
+	    <div style="text-align: center">
+		    <h4 for="nbMandat" class="col s12">Nombre de mandats cumulés</h4>
+		    <span id="minNbMandat" style="display:none">{{ minNbMandat }}</span>
+		    <span id="infNbMandat" class="col s3">{{ minNbMandat }}</span>
+		      <div class="col s6"><div class="noUi-target noUi-ltr noUi-horizontal noUi-background" id="range_03"></div></div>
+			<span id="maxNbMandat" style="display:none">{{ maxNbMandat }}</span>
+			<span id="supNbMandat" class="col s3">{{ maxNbMandat }}</span>
 	    </div>
-	     <div>
-		    <p for="nbAge">Age</p>
-		    <span id="minAge">{{ minAge }}</span>
-			<p id="slider-age"></p>
-			<span id="maxAge">{{ maxAge }}</span>
+	     <div style="text-align: center">
+		    <h4 for="nbAge" class="col s12">Age</h4>
+		    <span id="minAge" style="display:none">{{ minAge }}</span>
+		    <span id="infAge" class="col s3">{{ minAge }}</span>
+		      <div class="col s6"><div class="noUi-target noUi-ltr noUi-horizontal noUi-background" id="range_04"></div></div>
+			<span id="maxAge" style="display:none">{{ maxAge }}</span>
+			<span id="supAge" class="col s3">{{ maxAge }}</span>
 	    </div>
 		<div>
         	<input type="submit" value="Afficher" id="hemicycle-submit"/>
