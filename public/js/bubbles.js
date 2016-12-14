@@ -77,8 +77,6 @@ function initDataviz(request){
               .attr("class", "g-overlay")
               .attr("width", width)
               .attr("height", height);
-
-          d3.select(window).on('resize', resize); 
           
           updateTopics(data.groupes);
         
@@ -223,7 +221,7 @@ function initDataviz(request){
     // Simulate forces and update node and label positions on tick.
     function tick(e) {
       node
-          .each(bias(e.alpha * 120))
+          .each(bias(e.alpha * 105))
           .each(collide(0.5))
           .attr("transform", function(d) { return "translate(" + Math.max(50, d.x) + "," + d.y + ")"; });
 
