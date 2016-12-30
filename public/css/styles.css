@@ -12,6 +12,7 @@ p{
 	position:relative;
 	display:block;
 	margin-bottom:15px;
+	margin-left: 120px;
 	width:100%;
 	background:#eee;
 	height:35px;
@@ -33,7 +34,8 @@ p{
 .skillbar-title {
 	position:absolute;
 	top:0;
-	left:0;
+	// left:0;
+	left: -110px;
 	width:110px;
 	font-weight:bold;
 	font-size:13px;
@@ -66,7 +68,7 @@ p{
 	width:0px;
 	background:#6adcfa;
 	position: relative;
-	left: 110px;
+	// left: 110px;
 	border-radius:3px;
 	-moz-border-radius:3px;
 	-webkit-border-radius:3px;

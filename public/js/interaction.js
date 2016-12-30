@@ -24,9 +24,9 @@ var updateData = function(data){
 	if (anData.ready) refresh();
 
 	//refresh parity bar
-	$('#bar-femme-span').html(((nbFemme)/(nbFemme + nbHomme)*100).toString() + '%');
+	$('#bar-femme-span').html(((nbFemme)/(nbFemme + nbHomme)*100).toFixed(2).toString() + '%');
 	$('#bar-femme').attr('data-percent',((nbFemme)/(nbFemme + nbHomme)*100).toString() + '%');
-	$('#bar-homme-span').html(((nbHomme)/(nbFemme + nbHomme)*100).toString() + '%');
+	$('#bar-homme-span').html(((nbHomme)/(nbFemme + nbHomme)*100).toFixed(2).toString() + '%');
 	$('#bar-homme').attr('data-percent',((nbHomme)/(nbFemme + nbHomme)*100).toString() + '%');
 	$('.skillbar').each(function(){
       $(this).find('.skillbar-bar').animate({
