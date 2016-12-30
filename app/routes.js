@@ -131,8 +131,8 @@ module.exports = function(app) {
     });
   });
 
-  app.post('/api/hemicycle/search', function(req, res) {
-    var criteres = req.body;
+  app.get('/api/hemicycle/search', function(req, res) {
+    var criteres = req.query;
     var query = '';
     if (Object.keys(criteres).length > 0){
       query = {$and : []};

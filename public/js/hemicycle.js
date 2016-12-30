@@ -39,7 +39,7 @@ $(document).ready(function(){
         max_ddn.setFullYear( max_ddn.getFullYear() - parseInt($("#infAge").html()));
         criteres +='&date_naissance-lte='+ max_ddn.toISOString();
 
-        $.post('/api/hemicycle/search', criteres, function(resp) {
+        $.get('/api/hemicycle/search', criteres, function(resp) {
             updateData(resp);
             $('.skillbar').each(function(){
               $(this).find('.skillbar-bar').animate({
