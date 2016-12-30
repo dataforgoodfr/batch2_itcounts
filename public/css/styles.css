@@ -8,10 +8,21 @@ p{
   font-size:12px;
 }
 
+#hemicycle-form {
+	font-size: 10px !important;
+	height: 100vh;
+	overflow: scroll;
+}
+
+#hemicycle-form h4{
+	font-size: 1.4rem;
+}
+
 .skillbar {
 	position:relative;
 	display:block;
 	margin-bottom:15px;
+	margin-left: 120px;
 	width:100%;
 	background:#eee;
 	height:35px;
@@ -33,8 +44,9 @@ p{
 .skillbar-title {
 	position:absolute;
 	top:0;
-	left:0;
-width:110px;
+	// left:0;
+	left: -110px;
+	width:110px;
 	font-weight:bold;
 	font-size:13px;
 	color:#ffffff;
@@ -66,7 +78,7 @@ width:110px;
 	width:0px;
 	background:#6adcfa;
 	position: relative;
-	left: 110px;
+	// left: 110px;
 	border-radius:3px;
 	-moz-border-radius:3px;
 	-webkit-border-radius:3px;
@@ -81,4 +93,44 @@ width:110px;
 	line-height:35px;
 	color:#ffffff;
 	color:rgba(0, 0, 0, 0.4);
+}
+
+.field-tip {
+    position:relative;
+}
+.field-tip .tip-content {
+    position:absolute;
+    z-index: 1000;
+    top:-10px; /* - top padding */
+    right:9999px;
+    width:200px;
+    margin-right:-220px; /* width + left/right padding */
+    padding:10px;
+    color:#fff;
+    background:#333;
+    -webkit-box-shadow:2px 2px 5px #aaa;
+       -moz-box-shadow:2px 2px 5px #aaa;
+            box-shadow:2px 2px 5px #aaa;
+    opacity:0;
+    -webkit-transition:opacity 250ms ease-out;
+       -moz-transition:opacity 250ms ease-out;
+        -ms-transition:opacity 250ms ease-out;
+         -o-transition:opacity 250ms ease-out;
+            transition:opacity 250ms ease-out;
+}
+/* <http://css-tricks.com/snippets/css/css-triangle/> */
+.field-tip .tip-content:before {
+    content:' '; /* Must have content to display */
+    position:absolute;
+    top:50%;
+    left:-16px; /* 2 x border width */
+    width:0;
+    height:0;
+    margin-top:-8px; /* - border width */
+    border:8px solid transparent;
+    border-right-color:#333;
+}
+.field-tip:hover .tip-content {
+    right:-20px;
+    opacity:1;
 }
