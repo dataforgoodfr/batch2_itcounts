@@ -1,7 +1,11 @@
 <form action="" method="post" id="hemicycle-form">
 		<div>
-			<a class="waves-effect waves-light btn" id="preset-1">- 2 mandats</a>
-			<a class="waves-effect waves-light btn" id="preset-2">+60 ans IDF</a>
+
+  			<span class="field-tip"><a  id="preset-1" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">supervisor_account</i></a><span class="tip-content">Moins de deux mandats</span></span>
+  			<span class="field-tip"><a  id="preset-2" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">schedule</i></a><span class="tip-content">Agé de plus de 60 ans en IDF</span></span>
+  			<span class="field-tip"><a id="preset-3" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">replay</i></a><span class="tip-content">Reset</span></span>
+  			<span class="field-tip"><a id="hemicycle-submit" class="btn-floating btn-large waves-effect waves-light green"><i class="material-icons">send</i></a><span class="tip-content">Go !</span></span>
+        
 		</div>
         <div>
         	<h4>Groupe politique</h4>
@@ -41,7 +45,6 @@
 			<span id="supAge" class="col s3">{{ maxAge }}</span>
 	    </div>
 		<div>
-        	<input type="submit" value="Afficher" id="hemicycle-submit"/>
         </div>
   
 
