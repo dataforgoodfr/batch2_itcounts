@@ -62,12 +62,12 @@
 }
 
 .g-homme.g-swatch {
-  background-color: #ab72e5;
+  background-color: #e7774a;
   border-radius: 0 4px 4px 0;
 }
 
 .g-femme.g-swatch {
-  background-color: #bfff7f;
+  background-color: #64549d;
   border-radius: 4px 0 0 4px;
 }
 
@@ -89,19 +89,19 @@
 }
 
 .g-node .g-femme {
-  fill: #bfff7f;
+  fill: #64549d;
 }
 
 .g-node.g-hover .g-femme {
-  fill: #abe572; 
+  fill: #7567a8; 
 }
 
 .g-node .g-homme {
-  fill: #ab72e5;
+  fill: #e7774a;
 }
 
 .g-node.g-hover .g-homme {
-  fill: #ab72e5; 
+  fill: #e9845c; 
 }
 
 .g-node .g-split {
