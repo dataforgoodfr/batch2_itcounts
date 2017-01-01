@@ -19,7 +19,6 @@ $(function(){
 	_.forEach(micData, function(value, key){
 		micData[key].display = {
 			rect: paper.rect(value[0], value[1], 10,10),
-			// text: paper.text(value[0], value[1],key)
 		}
 		micData[key].display.value = 0;
 		micData[key].display.rect.attr("fill", "#8e24aa");
