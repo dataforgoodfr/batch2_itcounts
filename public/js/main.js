@@ -11,10 +11,18 @@ $(function(){
 			text: paper.text(value[0], value[1],key)
 		}
 		anData[key].display.value = 0;
-		anData[key].display.circle.attr("fill", "#f00");
+		anData[key].display.circle.attr("fill", "#ef5350");
 		anData[key].display.circle.attr("stroke", "#fff");
 		anData[key].display.circle.attr("cursor", "move");
 		anData[key].display.circle.drag(move, start, up);
+	})
+	_.forEach(micData, function(value, key){
+		micData[key].display = {
+			rect: paper.rect(value[0], value[1], 10,10),
+		}
+		micData[key].display.value = 0;
+		micData[key].display.rect.attr("fill", "#8e24aa");
+		micData[key].display.rect.attr("stroke", "#fff");
 	})
 	anData.ready = true;
 })
@@ -26,7 +34,7 @@ var refresh = function() {
 			return;
 		}
 		var val = anData[key].display.value;
-		var color = (val < 0.5) ? "#f00" : "#0f0";
+		var color = (val < 0.5) ? "#ef5350" : "#9ccc65";
 		color = (val < 0) ? "#ccc" : color;
 		anData[key].display.circle.attr("fill", color);
 		anData[key].display.circle.attr("stroke", "#fff");
@@ -47,12 +55,16 @@ var move = function (dx, dy) {
 }
 var up = function () {
 	_.forEach(anData, function(value, key){
-		anData[key].display.text.attr({
-			x: anData[key].display.circle.attrs.cx, 
-			y: anData[key].display.circle.attrs.cy 
-		});
-		anData[key][0] = anData[key].display.circle.attrs.cx
-		anData[key][1] = anData[key].display.circle.attrs.cy
+		// console.log("key", key);
+		// console.log("anData key",anData[key]);
+		if (anData[key].display) {
+			anData[key].display.text.attr({
+				x: anData[key].display.circle.attrs.cx, 
+				y: anData[key].display.circle.attrs.cy 
+			});
+			anData[key][0] = anData[key].display.circle.attrs.cx
+			anData[key][1] = anData[key].display.circle.attrs.cy
+		}
 	})              
 };   
 
@@ -63,7 +75,7 @@ var up = function () {
 		anData[key].display.circle.attr({
 			cx: anData[key].display.circle.attrs.cx + 1, 
 			cy: anData[key].display.circle.attrs.cy, 
-			fill: "#F00", stroke: "#FFF"});
+			fill: "#ef5350", stroke: "#FFF"});
 		anData[key].display.text.attr({
 			x: anData[key].display.circle.attrs.cx, 
 			y: anData[key].display.circle.attrs.cy 
@@ -79,7 +91,7 @@ var up = function () {
 		anData[key].display.circle.attr({
 			cx: anData[key].display.circle.attrs.cx - 1, 
 			cy: anData[key].display.circle.attrs.cy, 
-			fill: "#F00", stroke: "#FFF"});
+			fill: "#ef5350", stroke: "#FFF"});
 		anData[key].display.text.attr({
 			x: anData[key].display.circle.attrs.cx, 
 			y: anData[key].display.circle.attrs.cy 
@@ -95,7 +107,7 @@ var up = function () {
 		anData[key].display.circle.attr({
 			cx: anData[key].display.circle.attrs.cx, 
 			cy: anData[key].display.circle.attrs.cy + 1, 
-			fill: "#F00", stroke: "#FFF"});
+			fill: "#ef5350", stroke: "#FFF"});
 		anData[key].display.text.attr({
 			x: anData[key].display.circle.attrs.cx, 
 			y: anData[key].display.circle.attrs.cy 
@@ -111,7 +123,7 @@ var up = function () {
 		anData[key].display.circle.attr({
 			cx: anData[key].display.circle.attrs.cx, 
 			cy: anData[key].display.circle.attrs.cy - 1, 
-			fill: "#F00", stroke: "#FFF"});
+			fill: "#ef5350", stroke: "#FFF"});
 		anData[key].display.text.attr({
 			x: anData[key].display.circle.attrs.cx, 
 			y: anData[key].display.circle.attrs.cy 
