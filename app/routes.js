@@ -101,6 +101,11 @@ module.exports = function(app) {
         ,function(err, nb_mandats) {
         if (err) 
           res.json(err);
+      Deputes.aggregate([{"$group": { "_id": { commission: "$commission_permanente"} } },{ "$sort" : { "_id.commission" : 1 }}]
+        ,function(err, commission) {
+          console.log("commission",commission);
+        if (err) 
+          res.json(err);
       Deputes.aggregate([
             { $project : {"ageInMillis" : {$subtract : [new Date(), "$date_naissance"] }} }, 
             { $project : {"age" : {$divide : ["$ageInMillis", 31558464000] }}},
@@ -117,6 +122,7 @@ module.exports = function(app) {
               {
                 formData: {
                   political_group : groupes,
+                  commission : commission,
                   region : region,
                   minNbMandat : nb_mandats[0].min,
                   maxNbMandat : nb_mandats[0].max,
@@ -127,7 +133,7 @@ module.exports = function(app) {
           });
         });
       });
-      
+      });
     });
   });
 
