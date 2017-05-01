@@ -15,6 +15,13 @@
 	        {{/each}}
         </div>
         <div>
+          <h4>Commissions</h4>
+          {{#each commission}}
+        <input type="checkbox" name ="commission_permanente" class="commission" id="cm-{{_id.commission}}" value="{{_id.commission}}"> 
+        <label for="cm-{{_id.commission}}">{{_id.commission}}</label>
+          {{/each}}
+        </div>
+        <div>
         	<h4>Sexe</h4>
 			<input type="checkbox" name="sexe" id="cbox-femme" value="F"> 
 			<label for="cbox-femme">Femme</label>
